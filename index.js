@@ -8,14 +8,10 @@ const mongoose = require('mongoose');
 const {MONGODB_URL} = require('./config');
 
 global.__basedir = __dirname;
-mongoose.connect(MONGODB_URL);
-
-mongoose.connection.on('connected', () => {
-    console.log("Connected to MongoDB");
-});
-
-mongoose.connection.on('error', (error) => {
-  console.log("Some error whileConnected to MongoDB");
+mongoose.connect(MONGODB_URL).then(() => {
+  console.log("Connected to MongoDB");
+}).catch((err) => {
+  console.log("Error: ", err);
 });
 
 require('./models/user_model');
